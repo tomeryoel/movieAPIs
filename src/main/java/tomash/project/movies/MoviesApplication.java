@@ -28,7 +28,7 @@ public class MoviesApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**") // Apply to all endpoints
-						.allowedOrigins("http://localhost:3000") // Frontend URL (React)
+						.allowedOrigins("http://localhost:3000","https://tomashmovieclient.onrender.com") // Frontend URL (React)
 						.allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH") // Allow specific HTTP methods
 						.allowedHeaders("*") // Allow all headers
 						.allowCredentials(true); // Allow cookies (if needed)
