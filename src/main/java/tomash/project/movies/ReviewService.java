@@ -1,5 +1,6 @@
 package tomash.project.movies;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -20,14 +21,14 @@ public class ReviewService {
 //        reviewRepository.insert(review);
         // Step 1: Insert the new review
        Review review = reviewRepository.insert( new Review(reviewBody));
-
+        ObjectId reviewId = review.getId(); // Fetch the ObjectId from the new review
         // Step 2: Retrieve the Movie object by imdbId
         Movie movie = mongoTemplate.findOne(
                 Query.query(Criteria.where("imdbId").is(imdbId)), Movie.class);
 
         if (movie != null) {
             // Step 3: Add the review ID to the movie's list of review IDs
-            movie.getReviewIds().add(review);
+            movie.getReviewIds().add(reviewId);
 
             // Step 4: Save the updated Movie object
             mongoTemplate.save(movie);
